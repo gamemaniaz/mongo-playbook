@@ -54,6 +54,9 @@ public class MainHttpHandler implements HttpHandler {
             logger.info("Results of read:");
             handleReadRequest(exchange, documents);
         }
+        else if (lowerCaseUrlPath.contains("index")) {
+            mongoDB.createIndex(CORRECTION_FILE);
+        }
         else
             logger.info("Unmapped action to handle");
     }
