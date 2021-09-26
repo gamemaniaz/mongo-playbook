@@ -88,14 +88,15 @@ public class RealMongoDB implements MongoDB {
             MongoDatabase mongoDatabase = mongoClient.getDatabase(config.databaseName);
             logger.info("Creating index for " + mongoCollectionName.value);
             MongoCollection<Document> collection = mongoDatabase.getCollection(mongoCollectionName.value);
-//            collection.createIndex(Indexes.)
+            collection.createIndex(Indexes.ascending("jobId"));
+            logger.info("Created index for " + mongoCollectionName.value);
         } catch (Exception e) {
             logger.error("Caught exception while creating index", e);
         }
     }
 
     @Override
-    public MongoDB start() throws Exception {
+    public MongoDB start() {
         ConnectionString connectionString = new ConnectionString(config.connectionString);
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
